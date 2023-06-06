@@ -40,7 +40,6 @@ async function $getSolutions(i) {
       if (!challenge.likes.includes("6427d32faa082d10e4063c82")) {
         challenges.push(challenge.id)
       }
-      
       users.push(challenge.user)
     }
   } catch (error) {
@@ -169,6 +168,12 @@ app.get("/get", (req, res) => {
 
 app.get("/start", (req, res) => {
   res.send("Started")
+  loadSolutions()
+  .then(likeSolutions)
+  .then(getFollowings)
+  .then(followUsers)
+  .then(() => console.log("done"))
+  .catch(console.error)
 })
 
 app.get("/unfollow", (req, res) => {
@@ -186,8 +191,9 @@ app.listen(port, () => {
 });
 
 
-loadSolutions()
+/*loadSolutions()
   .then(likeSolutions)
   .then(getFollowings)
   .then(followUsers)
-  .catch(console.error)
+  .then(() => console.log("done"))
+  .catch(console.error)*/
