@@ -4,11 +4,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2Q1NmI4Njg0NDhlNTBjYTc0NGRmNWEiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTY4NTAwOTQ5MywiZXhwIjoxNjg3NjAxNDkzfQ.mRbSxGri3MUC74gNcIuh0ywNRGwliukApAyP2Rs1yg0'
+const token = process.env.TOKEN
 const challenges = []
 let users = []
 let followings = []
-const load = 100
+const load = 1
 const sleep = (ms) =>  new Promise(resolve => setTimeout(resolve, ms)) 
 
 async function $getSolutions(i) {
@@ -49,7 +49,7 @@ async function $getSolutions(i) {
 async function loadSolutions() {
   for (let i = 1; i <= load; i++) {
     await $getSolutions(i)
-    await sleep(1000)
+    await sleep(2000)
   }
 }
 
@@ -163,10 +163,7 @@ async function unfollowUsers() {
 async function start() {
   try {
     await loadSolutions()
-    console.log(challenges.length)
     await likeSolutions()
-    await getFollowings()
-    await followUsers()
     console.log("done")
   } catch(err) {console.log(err)}
 }
@@ -178,7 +175,7 @@ app.get("/get", (req, res) => {
 
 app.get("/start", (req, res) => {
   res.send("Started")
-  // setTimeout(start, 100)
+  setTimeout(start, 100)
 })
 
 app.get("/unfollow", (req, res) => {
@@ -196,10 +193,10 @@ app.listen(port, () => {
 });
 
 
-loadSolutions()
+/*loadSolutions()
   .then(likeSolutions)
   .then(getFollowings)
   .then(followUsers)
   .then(() => console.log("done"))
   .catch(console.error)
-  
+  */
