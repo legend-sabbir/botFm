@@ -163,21 +163,28 @@ async function unfollowUsers() {
 }
 
 
+async function start() {
+  try {
+    await loadSolutions()
+    console.log("loadedSolutions")
+    await likeSolutions()
+    console.log("likedSolutions")
+    await getFollowings()
+    console.log("loadedFollowers")
+    await followUsers()
+    console.log("done")
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 app.get("/get", (req, res) => {
   res.send("hello")
 })
 
 app.get("/start", (req, res) => {
   res.send("Started")
-  loadSolutions()
-    .then(() => console.log("loadedSolutions"))
-    .then(likeSolutions)
-    .then(() => console.log("likedSolutions"))
-    .then(getFollowings)
-    .then(() => console.log("loadedFollowers"))
-    .then(followUsers)
-    .then(() => console.log("done"))
-    .catch(console.error)
+  start()
 })
 
 app.get("/unfollow", (req, res) => {
