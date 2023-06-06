@@ -4,11 +4,11 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const token = "Bearer " + process.env.TOKEN
+const token = process.env.TOKEN
 const challenges = []
 let users = []
 let followings = []
-const load = process.env.LOAD
+const load = 3
 const sleep = (ms) =>  new Promise(resolve => setTimeout(resolve, ms)) 
 
 async function $getSolutions(i) {
