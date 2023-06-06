@@ -37,7 +37,7 @@ async function $getSolutions(i) {
     
     for (let i = 0, len = responseData.length; i < len; i++) {
       const challenge = responseData[i]
-      if (!challenge.likes.includes("6427d32faa082d10e4063c82")) {
+      if (!(challenge.likes.indexOf("6427d32faa082d10e4063c82") > -1)) {
         challenges.push(challenge.id)
       }
       users.push(challenge.user)
