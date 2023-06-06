@@ -163,28 +163,12 @@ async function unfollowUsers() {
 }
 
 
-async function start() {
-  try {
-    await loadSolutions()
-    console.log("loadedSolutions")
-    await likeSolutions()
-    console.log("likedSolutions")
-    await getFollowings()
-    console.log("loadedFollowers")
-    await followUsers()
-    console.log("done")
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 app.get("/get", (req, res) => {
   res.send("hello")
 })
 
 app.get("/start", (req, res) => {
   res.send("Started")
-  start()
 })
 
 app.get("/unfollow", (req, res) => {
@@ -200,3 +184,10 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+loadSolutions()
+  .then(likeSolutions)
+  .then(getFollowings)
+  .then(followUsers)
+  .catch(console.error)
