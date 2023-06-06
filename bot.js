@@ -8,7 +8,7 @@ const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2Q1NmI4N
 const challenges = []
 let users = []
 let followings = []
-const load = 3
+const load = 100
 const sleep = (ms) =>  new Promise(resolve => setTimeout(resolve, ms)) 
 
 async function $getSolutions(i) {
@@ -34,10 +34,10 @@ async function $getSolutions(i) {
     });
     
     const responseData = response.data.data
-    
+    console.log(responseData)
     for (let i = 0, len = responseData.length; i < len; i++) {
       const challenge = responseData[i]
-      if (!(challenge.likes.indexOf("6427d32faa082d10e4063c82") > -1)) {
+      if (!(challenge.likes.indexOf("63d56b868448e50ca744df5a") > -1)) {
         challenges.push(challenge.id)
       }
       users.push(challenge.user)
@@ -164,6 +164,7 @@ async function unfollowUsers() {
 async function start() {
   try {
     await loadSolutions()
+    console.log(challenges.length)
     await likeSolutions()
     await getFollowings()
     await followUsers()
@@ -178,7 +179,7 @@ app.get("/get", (req, res) => {
 
 app.get("/start", (req, res) => {
   res.send("Started")
-  setTimeout(start, 100)
+  // setTimeout(start, 100)
 })
 
 app.get("/unfollow", (req, res) => {
@@ -196,9 +197,10 @@ app.listen(port, () => {
 });
 
 
-/*loadSolutions()
+loadSolutions()
   .then(likeSolutions)
   .then(getFollowings)
   .then(followUsers)
   .then(() => console.log("done"))
-  .catch(console.error)*/
+  .catch(console.error)
+  
