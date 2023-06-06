@@ -34,7 +34,6 @@ async function $getSolutions(i) {
     });
     
     const responseData = response.data.data
-    console.log(responseData)
     for (let i = 0, len = responseData.length; i < len; i++) {
       const challenge = responseData[i]
       if (!(challenge.likes.indexOf("63d56b868448e50ca744df5a") > -1)) {
@@ -84,7 +83,7 @@ async function $likeSolution(id) {
 async function likeSolutions() {
   for (let i = 0, len = challenges.length; i < len; i++) {
     await $likeSolution(challenges[i])
-    await sleep(2000)
+    await sleep(1000)
   }
 }
 
