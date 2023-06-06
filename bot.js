@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const token = process.env.TOKEN
+const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2M2Q1NmI4Njg0NDhlNTBjYTc0NGRmNWEiLCJhZG1pbiI6ZmFsc2UsImlhdCI6MTY4NTAwOTQ5MywiZXhwIjoxNjg3NjAxNDkzfQ.mRbSxGri3MUC74gNcIuh0ywNRGwliukApAyP2Rs1yg0'
 const challenges = []
 let users = []
 let followings = []
@@ -84,7 +84,7 @@ async function $likeSolution(id) {
 async function likeSolutions() {
   for (let i = 0, len = challenges.length; i < len; i++) {
     await $likeSolution(challenges[i])
-    await sleep(1000)
+    await sleep(2000)
   }
 }
 
@@ -149,7 +149,7 @@ async function followUsers() {
     const user = users[i]
     if (followings.includes(user)) continue;
     await $followUser(user)
-    await sleep(1500)
+    await sleep(2000)
   }
 }
 
