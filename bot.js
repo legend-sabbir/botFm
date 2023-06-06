@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 
 const token = process.env.TOKEN
-const challenges = []
+let challenges = []
 let users = []
 let followings = []
 const load = 1
@@ -17,7 +17,6 @@ async function $getSolutions(i) {
       'Accept': 'application/json, text/plain, */*',
       'Accept-Encoding': 'gzip, deflate, br',
       'Accept-Language': 'en-US,en;q=0.9',
-      'Authorization': token,
       'If-None-Match': 'W/"3723c-+p5Fh0fkEzuSdIi81Sj4OlsdxdA"',
       'Origin': 'https://www.frontendmentor.io',
       'Referer': 'https://www.frontendmentor.io/',
@@ -164,6 +163,7 @@ async function start() {
   try {
     await loadSolutions()
     await likeSolutions()
+    challenges = []
     console.log("done")
   } catch(err) {console.log(err)}
 }
@@ -200,3 +200,4 @@ app.listen(port, () => {
   .then(() => console.log("done"))
   .catch(console.error)
   */
+  
