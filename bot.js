@@ -172,7 +172,7 @@ app.get("/start", (req, res) => {
   .then(likeSolutions)
   .then(getFollowings)
   .then(followUsers)
-  .then(() => console.log("done"))
+  .then(async () => console.log("done"))
   .catch(console.error)
 })
 
