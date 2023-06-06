@@ -166,14 +166,15 @@ app.get("/get", (req, res) => {
   res.send("hello")
 })
 
-app.get("/start", (req, res) => {
+app.get("/start", async (req, res) => {
   res.send("Started")
-  loadSolutions()
-  .then(likeSolutions)
-  .then(getFollowings)
-  .then(followUsers)
-  .then(async () => console.log("done"))
-  .catch(console.error)
+  try {
+    await loadSolutions()
+    await llikeSolutions()
+    await getFollowings()
+    await followUsers()
+    console.log("done")
+  } catch(err) {console.log(err)}
 })
 
 app.get("/unfollow", (req, res) => {
