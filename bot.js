@@ -4,14 +4,14 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
-const token = process.env.TOKEN
+const token = "Bearer " + process.env.TOKEN
 const challenges = []
 let users = []
 let followings = []
 const load = process.env.LOAD
 const sleep = (ms) =>  new Promise(resolve => setTimeout(resolve, ms)) 
 
-async function getSolutions(i) {
+async function $getSolutions(i) {
   try {
     const headers = {
       'Accept': 'application/json, text/plain, */*',
@@ -50,11 +50,12 @@ async function getSolutions(i) {
 
 async function loadSolutions() {
   for (let i = 1; i <= load; i++) {
-    await getSolutions(i)
+    await $getSolutions(i)
+    await sleep(1000)
   }
 }
 
-async function likeSolution(id) {
+async function $likeSolution(id) {
   try {
     const headers = {
       'Accept': 'application/json, text/plain, */*',
@@ -83,12 +84,12 @@ async function likeSolution(id) {
 
 async function likeSolutions() {
   for (let i = 0, len = challenges.length; i < len; i++) {
-    await likeSolution(challenges[i])
+    await $likeSolution(challenges[i])
     await sleep(1000)
   }
 }
 
-async function followUser(user) {
+async function $followUser(user) {
   try {
     const headers = {
       'Accept': 'application/json, text/plain, */*',
@@ -148,7 +149,7 @@ async function followUsers() {
   for (let i = 0, len = users.length; i < len; i++) {
     const user = users[i]
     if (followings.includes(user)) continue;
-    await followUser(user)
+    await $followUser(user)
     await sleep(1500)
   }
 }
