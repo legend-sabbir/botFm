@@ -82,7 +82,7 @@ async function $likeSolution(id) {
 async function likeSolutions() {
   for (let i = 0, len = challenges.length; i < len; i++) {
     await $likeSolution(challenges[i])
-    await sleep(1000)
+    await sleep(4000)
   }
 }
 
